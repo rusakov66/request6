@@ -1,66 +1,41 @@
 import io.restassured.response.Response;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-
-
+import static io.restassured.RestAssured.get;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 
 // This is one test branch
-
-
-
-
-
-
-
-
-
-
-
-
-import static io.restassured.RestAssured.get;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 public class GetRequestFromGithubTest {
     String stringURL = "https://api.github.com/users/rusakov66";
     Response response = get(stringURL);
     public JSONObject jsonResponse = new JSONObject(response.asString());
 
+    String name = jsonResponse.getString("name");
+    String login = jsonResponse.getString("login");
+
     @Test
-    public void getStatusLineAndStatusCode() throws JSONException {
-        int i = response.getStatusCode();
+    public void getRequestFromGithubTest() {
+        System.out.println(name + login);
+        /*int i = response.getStatusCode();
         System.out.println("----------- Status code is "+i);
         String statusLine = response.getStatusLine();
         assertThat(statusLine , is("HTTP/1.1 200 OK"));
-        System.out.println(statusLine);
-    }
+        System.out.println(statusLine);*/
 
-    @Test
-    public void getRequestFromGithubTest1() throws JSONException {
-        String login = jsonResponse.getString("login");
-        assertThat(login, is("rusakov66"));
-    }
 
-    @Test
-    public void getRequestFromGithubTes2() throws JSONException {
-        String name = jsonResponse.getString("name");
-        assertThat(name, is("Iurii Rusakov9"));
-    }
-
-    @Test
-    public void getRequestFromGithubTes3() throws JSONException {
-        int id = jsonResponse.getInt("id");
+        assertAll(
+                () -> assertThat("Iurii Rusakov", is(name)),
+                () -> assertThat("rusakov66EEEEE", is(login))
+        );
+        System.out.println(name + login);
+        /*int id = jsonResponse.getInt("id");
         assertThat(id, equalTo(16705398));
-    }
 
-    @Test
-    public void getRequestFromGithubTest4() throws JSONException {
         String node_id = jsonResponse.getString("node_id");
         assertThat(node_id, is("MDQ6VXNlcjE2NzA1Mzk4"));
         String url = jsonResponse.getString("url");
@@ -109,47 +84,32 @@ public class GetRequestFromGithubTest {
         assertThat(followers, is(0));
         int following = jsonResponse.getInt("following");
         assertThat(following, is(0));
-    }
 
-    @Test
-    public void getRequestFromGithubTes5() throws JSONException {
         int id = jsonResponse.getInt("id");
         assertThat(id, equalTo(16705398));
-    }
 
-    @Test
-    public void getRequestFromGithubTes6() throws JSONException {
         String created_at = jsonResponse.getString("created_at");
         assertThat(created_at, is("2016-01-14T15:18:18Z"));
-    }
 
-    @Test
-    public void getRequestFromGithubTes7() throws Exception  {
         String updated_at = jsonResponse.getString("updated_at");
         SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("yyyy-MM-dd'T'HH:mm:ss");
-        Date docDate= format.parse(updated_at);
+        Date docDate = format.parse(updated_at);
         System.out.println(docDate); // Tue May 28 07:39:14 EEST 2019
         assertThat(updated_at, is("2019-05-21T08:12:28Z"));
-    }
 
-    @Test
-    public void getRequestFromGithubTes8() throws Exception  {
         String gravatar_id = jsonResponse.getString("gravatar_id");
         assertThat(gravatar_id, is(""));
         System.out.println(gravatar_id);
-    }
 
-    @Test
-    public void getRequestFromGithubTes9() throws Exception  {
         String avatar_url = jsonResponse.getString("avatar_url");
         assertThat(avatar_url, is("https://avatars1.githubusercontent.com/u/16705398?v=4"));
         Response response2 = get(avatar_url);
 
         int i = response2.getStatusCode();
-        System.out.println("----------- Status code is "+i);
+        System.out.println("----------- Status code is " + i);
         String statusLine = response2.getStatusLine();
-        assertThat(statusLine , is("HTTP/1.1 200 OK"));
-        System.out.println(statusLine);
+        assertThat(statusLine, is("HTTP/1.1 200 OK"));
+        System.out.println(statusLine);*/
     }
 }
