@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 // This is one test branch
 
-public class GetRequestFromGithubTest {
+public class GetRequestFromGithubTestForJunit5 {
 
 
     @Test
